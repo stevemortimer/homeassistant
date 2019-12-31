@@ -1,0 +1,16 @@
+alias: Turn off basement lights 60 minutes after last movement
+trigger:
+  platform: state
+  entity_id: sensor.aeon_labs_zw100_multisensor_6_burglar
+  to: '0'
+  for:
+    minutes: 60
+action:
+  service: light.turn_off 
+  entity_id:
+    - light.bar_center
+    - light.bar_right
+    - light.bar_left
+    - light.fan_light
+    - light.floor_lamp
+    - light.office

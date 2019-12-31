@@ -1,0 +1,13 @@
+alias: Turn on the front porch light when the sun is set
+description: ''
+trigger:
+  event: sunset
+  offset: -00:30
+  platform: sun
+condition: []
+action:
+- service: light.turn_on
+  data:
+    brightness: 255
+    entity_id: 
+      - light.front_porch

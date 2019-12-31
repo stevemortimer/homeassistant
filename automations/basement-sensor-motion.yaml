@@ -1,0 +1,15 @@
+alias: Basement Motion turns on lights
+trigger:
+  platform: state
+  entity_id: sensor.aeon_labs_zw100_multisensor_6_burglar
+  from: '0'
+  to: '8'
+action:
+  service: light.turn_on 
+  entity_id:
+    - light.bar_center
+    - light.bar_right
+    - light.bar_left
+    - light.fan_light
+    - light.floor_lamp
+    - light.office
