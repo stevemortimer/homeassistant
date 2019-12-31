@@ -1,0 +1,4 @@
+Family:
+  entities:
+    - device_tracker.life360_steve_mortimer
+    - device_tracker.life360_dawn
