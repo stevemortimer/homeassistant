@@ -1,0 +1,8 @@
+alias: Turn the lights off when everybody leaves
+trigger:
+  platform: state
+  entity_id: group.family
+  from: 'home'
+action:
+  entity_id: group.all_lights
+  service: light.turn_off
