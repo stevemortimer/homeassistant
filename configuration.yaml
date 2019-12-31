@@ -30,3 +30,8 @@ climate:
     username: !secret honeywell_username
     password: !secret honeywell_password
     region: !secret honeywell_region
+
+life360:
+  accounts:
+    - username: !secret life360_username
+      password: !secret life360_password
