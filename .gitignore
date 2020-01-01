@@ -1,24 +1,23 @@
-# Example .gitignore file for your config dir.
-# An * ensures that everything will be ignored.
-*
+#hidden files
+.*
 
-# You can whitelist files/folders with !, these will not be ignored.
-!*.yaml
-!.gitignore
-!*.md
-!automations
-!appdaemon/apps/
-!appdaemon/apps/
+#logs 
+home-assistant.log
+appdaemon.log
+OZW_Log.txt
 
-# Ignore folders.
-.storage
-.cloud
-.google.token
-deps
-tts
-
-# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
-ip_bans.yaml
+#sensitive
 secrets.yaml
 known_devices.yaml
+options.xml
 appdaemon/appdaemon.yaml
+
+#db
+home-assistant_v2.db
+pyozw.sqlite
+
+#zwave config
+zw*.xml
+
+#cache
+appdaemon/apps/__pycache__
