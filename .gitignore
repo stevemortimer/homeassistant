@@ -9,6 +9,7 @@ OZW_Log.txt
 #sensitive
 secrets.yaml
 known_devices.yaml
+zones.yaml
 options.xml
 appdaemon/appdaemon.yaml
 
@@ -20,4 +21,5 @@ pyozw.sqlite
 zw*.xml
 
 #cache
+tts
 appdaemon/apps/__pycache__
