@@ -15,3 +15,13 @@ Kitchen:
     - light.kitchen_2
     - light.kitchen_3
     - light.hue_white_lamp_1
+    - light.dining_room_1
+    - light.dining_room_2
+    - light.dining_room_3
+
+LivingRoom:
+  entities:
+    - light.facing_couch
+    - light.facing_door
+    - light.facing_kitchen
+    - light.facing_window

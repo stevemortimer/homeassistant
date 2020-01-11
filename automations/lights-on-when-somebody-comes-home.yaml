@@ -10,3 +10,4 @@ action:
     entity_id: 
       - group.kitchen
       - light.front_porch
+      - group.livingroom
