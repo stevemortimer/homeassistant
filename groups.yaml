@@ -2,3 +2,16 @@ Family:
   entities:
     - device_tracker.life360_steve_mortimer
     - device_tracker.life360_dawn
+
+LaundryRoom:
+  entities:
+    - light.hue_white_lamp_1_3
+    - light.laundry_room
+    - light.laundry_room_storage
+
+Kitchen:
+  entities:
+    - light.kitchen_1
+    - light.kitchen_2
+    - light.kitchen_3
+    - light.hue_white_lamp_1

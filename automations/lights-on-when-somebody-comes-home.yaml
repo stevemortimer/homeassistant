@@ -1,0 +1,12 @@
+alias: Turn the lights on when somebody comes home
+trigger:
+  platform: state
+  entity_id: group.family
+  to: 'home'
+action:
+  service: light.turn_on
+  data:
+    brightness: 175
+    entity_id: 
+      - group.kitchen
+      - light.front_porch
