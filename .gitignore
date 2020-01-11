@@ -5,6 +5,9 @@
 home-assistant.log
 appdaemon.log
 OZW_Log.txt
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
+
 
 #sensitive
 secrets.yaml
