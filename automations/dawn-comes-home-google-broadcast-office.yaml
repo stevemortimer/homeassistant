@@ -1,0 +1,10 @@
+alias: Broadcast Dawn arriving home to office speaker
+trigger:
+  platform: state
+  entity_id: device_tracker.life360_dawn
+  to: 'home'
+action:
+  service: tts.google_translate_say
+  entity_id: media_player.office_speaker
+  data:
+    message: "Dawn is Home"
