@@ -1,0 +1,36 @@
+# Secrets
+secrets.yaml
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+*.log.*
+*.fault
+
+# Storage and cache
+.storage/
+.cache/
+deps/
+tts/
+
+# Cloud and backups
+.cloud/
+backups/
+
+# Home Assistant system files
+.HA_VERSION
+.bash_history
+.ha_run.lock
+
+# Python
+*.pyc
+__pycache__/
+
+# Editor and system files
+.DS_Store
+.vscode/
+*.swp

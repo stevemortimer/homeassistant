@@ -1,0 +1,30 @@
+- id: '1726705397247'
+  alias: Front porch sunrise
+  description: Turn off the front porch light at sunrise+30
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 00:30:00
+  condition: []
+  action:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: d8b71bed1e3b4fb94eaa80aba6930fbf
+  mode: single
+- id: '1726705495110'
+  alias: front porch sunset
+  description: Turn on the front porch light 30 minutes before sunset
+  triggers:
+  - event: sunset
+    offset: -00:30
+    trigger: sun
+  conditions: []
+  actions:
+  - action: light.turn_on
+    target:
+      device_id: d8b71bed1e3b4fb94eaa80aba6930fbf
+    data:
+      brightness_pct: 100
+  mode: single
