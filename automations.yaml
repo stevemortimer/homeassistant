@@ -28,3 +28,31 @@
     data:
       brightness_pct: 100
   mode: single
+- id: '1737403000001'
+  alias: Steve arrived home
+  description: Notify when Steve's phone arrives home
+  triggers:
+  - platform: state
+    entity_id: person.steve
+    to: home
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_9_pro_xl
+    data:
+      title: "🏠 Welcome Home!"
+      message: "Presence detected - arrived at {{ now().strftime('%I:%M %p') }}"
+  mode: single
+- id: '1737403000002'
+  alias: Steve left home
+  description: Notify when Steve's phone leaves home
+  triggers:
+  - platform: state
+    entity_id: person.steve
+    from: home
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_9_pro_xl
+    data:
+      title: "🚗 Left Home"
+      message: "Presence lost - left at {{ now().strftime('%I:%M %p') }}"
+  mode: single
