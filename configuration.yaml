@@ -5,3 +5,15 @@ default_config:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+# Light Groups
+light:
+  - platform: group
+    name: Under Cabinet Lights
+    entities:
+      - light.undercabinet_light_1
+      - light.undercabinet_light_2
+      - light.undercabinet_light_3
+      - light.undercabinet_light_4
+      - light.undercabinet_light_5
+      - light.undercabinet_light_6
