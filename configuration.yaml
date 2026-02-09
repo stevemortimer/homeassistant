@@ -6,6 +6,13 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+# Set this to your phone's notify entity (e.g. after Companion app reinstall).
+# Find it under Settings > Devices & Services > Companion app > [your device] > Entities
+input_text:
+  steve_phone_notify_entity:
+    name: Steve's phone notify entity
+    initial: "notify.mobile_app_pixel_9_pro_xl"
+
 # Light Groups
 light:
   - platform: group

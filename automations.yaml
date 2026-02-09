@@ -37,7 +37,7 @@
     to: home
   conditions: []
   actions:
-  - action: notify.mobile_app_pixel_9_pro_xl
+  - service: "{{ states('input_text.steve_phone_notify_entity') }}"
     data:
       title: "🏠 Welcome Home!"
       message: "Presence detected - arrived at {{ now().strftime('%I:%M %p') }}"
@@ -51,7 +51,7 @@
     from: home
   conditions: []
   actions:
-  - action: notify.mobile_app_pixel_9_pro_xl
+  - service: "{{ states('input_text.steve_phone_notify_entity') }}"
     data:
       title: "🚗 Left Home"
       message: "Presence lost - left at {{ now().strftime('%I:%M %p') }}"
