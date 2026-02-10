@@ -56,3 +56,65 @@
       title: "🚗 Left Home"
       message: "Presence lost - left at {{ now().strftime('%I:%M %p') }}"
   mode: single
+
+# Under cabinet lights: ON when dark, OFF when light
+# Uses sun elevation + weather (cloudy/foggy/rainy) for overcast days
+# Visibility (low = foggy/dark) also triggers lights on
+# Replace weather.home with your weather entity if different (Settings > Devices)
+- id: '1739120000001'
+  alias: Under cabinet lights - dark/light
+  description: Turn under cabinet lights on when dark, off when light
+  triggers:
+  - platform: sun
+    event: sunset
+  - platform: sun
+    event: sunrise
+  - platform: sun
+    event: sunrise
+    offset: "01:00:00"  # 1 hr after sunrise (dawn)
+  - platform: sun
+    event: sunset
+    offset: "-01:00:00"  # 1 hr before sunset
+  - platform: numeric_state
+    entity_id: sun.sun
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    above: 18
+    below: 23
+  - platform: numeric_state
+    entity_id: sun.sun
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    above: -3
+    below: 5
+  - platform: time_pattern
+    minutes: "/15"
+  action:
+  - choose:
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        - condition: and
+          conditions:
+          - condition: numeric_state
+            entity_id: sun.sun
+            value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+            below: 20
+          - condition: template
+            value_template: >-
+              {% set w = states('weather.home') | default('sunny') %}
+              {% set vis = state_attr('weather.home', 'visibility') | default(999) | float %}
+              {{ w in ['cloudy', 'foggy', 'rainy', 'pouring', 'partlycloudy',
+                 'lightning-rainy'] or vis < 5 }}
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.under_cabinet_lights
+        data:
+          brightness_pct: 80
+    default:
+    - action: light.turn_off
+      target:
+        entity_id: light.under_cabinet_lights
+  mode: restart
