@@ -17,6 +17,7 @@ input_text:
 light:
   - platform: group
     name: Under Cabinet Lights
+    unique_id: lightgroup_under_cabinet_lights
     entities:
       - light.undercabinet_light_1
       - light.undercabinet_light_2

@@ -56,110 +56,45 @@
       title: "🚗 Left Home"
       message: "Presence lost - left at {{ now().strftime('%I:%M %p') }}"
   mode: single
-
-# Under cabinet lights: ON when dark, OFF when light
-# Uses sun elevation + weather (cloudy/foggy/rainy) for overcast days
-# Visibility (low = foggy/dark) also triggers lights on
-# Replace weather.home with your weather entity if different (Settings > Devices)
-- id: '1739120000001'
-  alias: Under cabinet lights - dark/light
-  description: Turn under cabinet lights on when dark, off when light
-  triggers:
+- id: '1737403000003'
+  alias: Under cabinet lights on at sunset
+  description: Turn on under cabinet lights 30 minutes before sunset
+  trigger:
   - platform: sun
     event: sunset
-    id: sunset
+    offset: '-00:30:00'
+  condition: []
+  action:
+  - action: light.turn_on
+    target:
+      entity_id: light.under_cabinet_lights
+    data:
+      brightness_pct: 100
+  mode: single
+- id: '1737403000004'
+  alias: Under cabinet lights off at sunrise
+  description: Turn off under cabinet lights 30 minutes after sunrise
+  trigger:
   - platform: sun
     event: sunrise
-    id: sunrise
-  - platform: sun
-    event: sunrise
-    offset: "01:00:00"  # 1 hr after sunrise (dawn)
-    id: sunrise_1hr
-  - platform: sun
-    event: sunset
-    offset: "-01:00:00"  # 1 hr before sunset
-    id: sunset_1hr
-  - platform: numeric_state
-    entity_id: sun.sun
-    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-    above: 18
-    below: 23
-    id: elevation_twilight
-  - platform: numeric_state
-    entity_id: sun.sun
-    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-    above: -3
-    below: 5
-    id: elevation_low
-  - platform: time_pattern
-    minutes: "/15"
-    id: every_15
+    offset: 00:30:00
+  condition: []
+  action:
+  - action: light.turn_off
+    target:
+      entity_id: light.under_cabinet_lights
+  mode: single
+- id: '1737403000005'
+  alias: Under cabinet lights dim after 10pm
+  description: Set under cabinet lights to 10% at 10pm
+  trigger:
   - platform: time
     at: "22:00:00"
-    id: dim_at_10pm
+  condition: []
   action:
-  - choose:
-    # 10pm: dim to 10% if lights are on (then stop)
-    - conditions:
-      - condition: template
-        value_template: "{{ trigger.id == 'dim_at_10pm' }}"
-      - condition: state
-        entity_id: light.under_cabinet_lights
-        state: "on"
-      sequence:
-      - action: light.turn_on
-        target:
-          entity_id: light.under_cabinet_lights
-        data:
-          brightness_pct: 10
-    # Sunset / 1 hr before sunset: always turn ON at 100%
-    - conditions:
-      - condition: template
-        value_template: "{{ trigger.id in ['sunset', 'sunset_1hr'] }}"
-      sequence:
-      - action: light.turn_on
-        target:
-          entity_id: light.under_cabinet_lights
-        data:
-          brightness_pct: 100
-    # Sunrise / 1 hr after sunrise: always turn OFF
-    - conditions:
-      - condition: template
-        value_template: "{{ trigger.id in ['sunrise', 'sunrise_1hr'] }}"
-      sequence:
-      - action: light.turn_off
-        target:
-          entity_id: light.under_cabinet_lights
-    # Every 15 min + elevation bands: turn on if dark/overcast, else off
-    default:
-    - choose:
-      - conditions:
-        - condition: or
-          conditions:
-          - condition: state
-            entity_id: sun.sun
-            state: below_horizon
-          - condition: and
-            conditions:
-            - condition: numeric_state
-              entity_id: sun.sun
-              value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-              below: 20
-            - condition: template
-              value_template: >-
-                {% set w = states('weather.home') | default('sunny') %}
-                {% set vis_raw = state_attr('weather.home', 'visibility') %}
-                {% set vis = (vis_raw if vis_raw is not none else 999) | float %}
-                {{ w in ['cloudy', 'foggy', 'rainy', 'pouring', 'partlycloudy',
-                   'lightning-rainy'] or vis < 5 }}
-        sequence:
-        - action: light.turn_on
-          target:
-            entity_id: light.under_cabinet_lights
-          data:
-            brightness_pct: 100
-      default:
-      - action: light.turn_off
-        target:
-          entity_id: light.under_cabinet_lights
-  mode: restart
+  - action: light.turn_on
+    target:
+      entity_id: light.under_cabinet_lights
+    data:
+      brightness_pct: 10
+  mode: single
