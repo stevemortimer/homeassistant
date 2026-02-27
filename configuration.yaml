@@ -2,6 +2,12 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+# Automation debugging (disable or remove when not needed)
+logger:
+  default: info
+  logs:
+    homeassistant.components.automation: debug
+
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
